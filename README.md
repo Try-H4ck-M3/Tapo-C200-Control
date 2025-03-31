@@ -1,4 +1,4 @@
-# Tapo-C200-Control
+# Tapo C200 Control Script
 
 ### Educational Purposes Only
 
