@@ -6,6 +6,8 @@ A powerful Python script to gain full control over TP-Link Tapo C200 IP cameras.
 
 **⚠️ Disclaimer**: This project is for educational and security research purposes only. Use only on devices you own or have permission to test.
 
+**CVE-2021-4045** is a remote code execution (RCE) vulnerability caused by command injection in the TP-Link Tapo c200 IP camera. Due to the bad input validation in *uhttpd*, a core component of the device, attackers are allowed to execute arbitrary commands. All firmware versions before **1.1.16 Build 211209 Rel. 37726N** are vulnerable. For a detailed analysis, refer to the full write-up by [@hacefresko](https://github.com/hacefresko/)  [here](https://github.com/hacefresko/CVE-2021-4045/).
+
 ## Key Features
 
 - 🛠️ **Full Root Access**: Obtain a reverse shell with root privileges
